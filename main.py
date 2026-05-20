@@ -12,5 +12,9 @@ client = genai.Client(api_key=api_key)
 result = client.models.generate_content(
 model = "gemini-2.5-flash",
 contents = "Why is Boot.dev such a great place to learn backend development? Use one paragraph maximum.")
-# print(f"Prompt tokens: {ptkens}")
-print(result.text)
+if result.usage_metadata is None:
+    raise RuntimeError("Usage metadata None.")
+
+print(f"Prompt tokens: {result.usage_metadata.prompt_token_count}")
+print(f"response tokens: {result.usage_metadata.candidates_token_count}")
+print(f"response: {result.text}")
