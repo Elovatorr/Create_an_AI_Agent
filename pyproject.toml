@@ -4,5 +4,6 @@ version = "0.1.0"
 requires-python = ">=3.14"
 dependencies = [
     "google-genai==1.12.1",
+    "protobuf>=7.35.0",
     "python-dotenv==1.1.0",
 ]
