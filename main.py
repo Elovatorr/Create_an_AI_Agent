@@ -21,6 +21,7 @@ def main():
     user_messages: list[types.Content] = [
         types.Content(role="user",parts=[types.Part(text=args.user_prompt)])
                                      ]
+    
     result = client.models.generate_content(
         model = "gemini-2.5-flash",
         contents = user_messages)
