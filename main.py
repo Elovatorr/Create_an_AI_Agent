@@ -26,8 +26,4 @@ def main():
     print(f"Response tokens: {result.usage_metadata.candidates_token_count}")
     print(f"response: {result.text}")
 
-
-
-
-
 main()
