@@ -1,6 +1,4 @@
 import os
-from pyexpat.errors import messages
-
 from dotenv import load_dotenv
 from google import genai
 from google.genai import types
@@ -27,7 +25,7 @@ def main():
         model = "gemini-2.5-flash",
         contents = user_messages)
     if result.usage_metadata is None:
-        raise RuntimeError("Usage metadata None.")
+        raise RuntimeError("Usage metadata doesn't exist idiot.")
 
     if args.verbose is True:
         print(f"User prompt: {args.user_prompt}")
