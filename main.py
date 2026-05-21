@@ -37,8 +37,8 @@ def main():
     if result.function_calls != None:
         for function in result.function_calls:
             print(f"Calling function: {function.name}({function.args})")
-
-    print(f"result: {result.text}")
+    else:
+        print(f"result: {result.text}")
 
 main()
 
