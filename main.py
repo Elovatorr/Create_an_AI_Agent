@@ -47,7 +47,7 @@ def main():
             function_results.append(function_call_result.parts[0])
 
     else:
-        print(f"result: {result.text}")
+        print(f"{result.text}")
 
 main()
 
