@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 import argparse
+from prompts import *
 
 
 
@@ -24,7 +25,9 @@ def main():
     
     result = client.models.generate_content(
         model = "gemini-2.5-flash",
-        contents = user_messages)
+        contents = user_messages,
+        config=types.GenerateContentConfig(system_instruction=system_prompt))
+
     if result.usage_metadata is None:
         raise RuntimeError("Usage metadata doesn't exist idiot.")
 
@@ -32,6 +35,6 @@ def main():
         print(f"User prompt: {args.user_prompt}")
         print(f"Prompt tokens: {result.usage_metadata.prompt_token_count}")
         print(f"Response tokens: {result.usage_metadata.candidates_token_count}")
-    print(f"response: {result.text}")
+    print(f"{result.text}")
 
 main()
