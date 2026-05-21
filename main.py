@@ -4,8 +4,7 @@ from google import genai
 from google.genai import types
 import argparse
 from prompts import *
-
-
+from call_function import available_functions
 
 def main():
     load_dotenv()
@@ -22,11 +21,11 @@ def main():
     user_messages: list[types.Content] = [
         types.Content(role="user",parts=[types.Part(text=args.user_prompt)])
                                      ]
-    
+
     result = client.models.generate_content(
         model = "gemini-2.5-flash",
         contents = user_messages,
-        config=types.GenerateContentConfig(system_instruction=system_prompt))
+        config=types.GenerateContentConfig(Tools=available_functions,system_instruction=system_prompt))
 
     if result.usage_metadata is None:
         raise RuntimeError("Usage metadata doesn't exist idiot.")
@@ -35,6 +34,11 @@ def main():
         print(f"User prompt: {args.user_prompt}")
         print(f"Prompt tokens: {result.usage_metadata.prompt_token_count}")
         print(f"Response tokens: {result.usage_metadata.candidates_token_count}")
-    print(f"{result.text}")
-
+    if result.function_calls != None:
+        for function in result.function_calls:
+            print(f"Calling function: {function.name}({function.args})")
+    else:
+        print(f"result: {result.text}")
 main()
+
+
