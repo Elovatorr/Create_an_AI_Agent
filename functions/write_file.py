@@ -1,4 +1,22 @@
 import os
+from google.genai import types
+# function declaration for gemini to read
+schema_write_file = types.FunctionDeclaration(
+    name="write_file",
+    description="Creates a file in final directory in file_path with the name specified in file_path and writes content into that file",
+    parameters=types.Schema(
+        type=types.Type.OBJECT,
+        properties={
+            "file_path": types.Schema(
+                type=types.Type.STRING,
+                description="File path to the file to be created and written to. This will create the necessary directory if it doesnt exist and is relative to the working directory"),
+            "content": types.Schema(
+                type=types.Type.STRING,
+                description="Content to be written inside file"),
+                                            },
+        required=["file_path","content"]
+    ),
+)
 
 def write_file(working_directory: str, file_path: str, content: str) -> str:
     try:
