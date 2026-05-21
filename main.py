@@ -25,7 +25,7 @@ def main():
     result = client.models.generate_content(
         model = "gemini-2.5-flash",
         contents = user_messages,
-        config=types.GenerateContentConfig(Tools=[available_functions],system_instruction=system_prompt))
+        config=types.GenerateContentConfig(tools=[available_functions],system_instruction=system_prompt))
 
     if result.usage_metadata is None:
         raise RuntimeError("Usage metadata doesn't exist idiot.")
@@ -37,8 +37,9 @@ def main():
     if result.function_calls != None:
         for function in result.function_calls:
             print(f"Calling function: {function.name}({function.args})")
-    else:
-        print(f"result: {result.text}")
+
+    print(f"result: {result.text}")
+
 main()
 
 
