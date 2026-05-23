@@ -4,6 +4,7 @@ from functions.get_file_content import schema_get_file_content,get_file_content
 from functions.write_file import schema_write_file,write_file
 from functions.run_python_file import schema_run_python_file, run_python_file
 from collections.abc import Callable
+from working_directory import wdirectory
 
 available_functions = types.Tool(
     function_declarations=[schema_get_files_info,schema_get_file_content,schema_write_file,schema_run_python_file])
@@ -37,7 +38,7 @@ def call_function(function_call: types.FunctionCall, verbose: bool = False) -> t
         )
 
     args = dict(function_call.args) if function_call.args else {}
-    args["working_directory"] = "./calculator"
+    args["working_directory"] = wdirectory
 
     function_result = function_map[function_call.name](**args)
 
